@@ -9,11 +9,11 @@ namespace PM
     public class Map : MonoBehaviour
     {
         /// <summary>
-        /// ¸ÊÀÇ ÃÖ´ë°¡·Î Å©±â ¼¼·Î Å©±â ÀúÀå ¹è¿­±âÁØ
-        /// ¹è¿­¿¡ °¡·Î ¼¼·Î Å©±â ÇÁ¸®ÆÕ ¼ø¼­¸¦ ·£´ıÀ¸·Î ÀúÀå
-        /// ¹æ ÇÁ¸®ÆÕÀ» »çÀÌÁî º°·Î ¸¸µé¾î ³õ°í ·£´ıÀ¸·Î ¹è¿­¼øÀ¸·Î ±× »çÀÌÁîÁß ÇÏ³ª¸¦ °¡Á®¿Â´Ù
-        /// ·ëÁ¾·ù room0 {2,2}, room1{2,3}, room2{3,2}, room3{3,3}, room4{2,4}, room5{4,2}, room6{3,4}, room7{4,3}, room8{4,4}
-        /// array »ı¼ºµÈ ·ëÀÇ °ÔÀÓ¿Àºê Á§Æ®¸¦ ÀúÀå
+        /// ë§µì˜ ìµœëŒ€ê°€ë¡œ í¬ê¸° ì„¸ë¡œ í¬ê¸° ì €ì¥ ë°°ì—´ê¸°ì¤€
+        /// ë°°ì—´ì— ê°€ë¡œ ì„¸ë¡œ í¬ê¸° í”„ë¦¬íŒ¹ ìˆœì„œë¥¼ ëœë¤ìœ¼ë¡œ ì €ì¥
+        /// ë°© í”„ë¦¬íŒ¹ì„ ì‚¬ì´ì¦ˆ ë³„ë¡œ ë§Œë“¤ì–´ ë†“ê³  ëœë¤ìœ¼ë¡œ ë°°ì—´ìˆœìœ¼ë¡œ ê·¸ ì‚¬ì´ì¦ˆì¤‘ í•˜ë‚˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤
+        /// ë£¸ì¢…ë¥˜ room0 {2,2}, room1{2,3}, room2{3,2}, room3{3,3}, room4{2,4}, room5{4,2}, room6{3,4}, room7{4,3}, room8{4,4}
+        /// array ìƒì„±ëœ ë£¸ì˜ ê²Œì„ì˜¤ë¸Œ ì íŠ¸ë¥¼ ì €ì¥
         /// </summary>
         [SerializeField] int maxXSize;
         [SerializeField] int maxYSize;
@@ -55,7 +55,7 @@ namespace PM
             WallCreate();
         }
 
-        // ÇÁ¸®ÆÕÀ» »ı¼ºÇÒ À§Ä¡¸¦ ÁöÁ¤
+        // í”„ë¦¬íŒ¹ì„ ìƒì„±í•  ìœ„ì¹˜ë¥¼ ì§€ì •
         private void PositionSetting()
         {
             position = new Vector3[maxYSize, maxXSize];
@@ -68,25 +68,25 @@ namespace PM
             }
         }
 
-        // ·£´ıÀ¸·Î ÇÁ¸®ÆÕÀ» ¹Ş¾Æ array¿¡ ÀúÀå ÈÄ x,y °ªÀ» ÀúÀå
+        // ëœë¤ìœ¼ë¡œ í”„ë¦¬íŒ¹ì„ ë°›ì•„ arrayì— ì €ì¥ í›„ x,y ê°’ì„ ì €ì¥
         private void RandomPrefab()
         {
             array = new GameObject[maxYSize, maxXSize];
             roomData = new RoomData[maxYSize, maxXSize];
-            // ÃÊ±â¿¡´Â x,y 3~4À¸·Î ¼³Á¤
+            // ì´ˆê¸°ì—ëŠ” x,y 3~4ìœ¼ë¡œ ì„¤ì •
             for (int j = 0; j < maxYSize; j++)
             {
                 for (int i = 0; i < maxXSize; i++)
                 {
                     int x = Random.Range(RoomMinSize, RoomMaxSize + 1);
                     int z = Random.Range(RoomMinSize, RoomMaxSize + 1);
-                    // Ã¹¹øÂ° ¹æÀº ½ÃÀÛ¹æÀ¸·Î ¼³Á¤
+                    // ì²«ë²ˆì§¸ ë°©ì€ ì‹œì‘ë°©ìœ¼ë¡œ ì„¤ì •
                     if( j==0 && i==0)
                     {
                         x = 2;
                         z = 2;
                     }
-                    // ¸¶Áö¸· ¹è¿­¹æ¿¡´Â º¸½º·ëÀ» »ı¼º
+                    // ë§ˆì§€ë§‰ ë°°ì—´ë°©ì—ëŠ” ë³´ìŠ¤ë£¸ì„ ìƒì„±
                     if (j == maxYSize - 1 && i == maxXSize - 1)
                     {
                         x = 4;
@@ -132,18 +132,18 @@ namespace PM
             }
         }
 
-        // array¹è¿­ÀÇ ¿­À» ¸Å°³º¯¼ö·Î ¹ŞÀ½
+        // arrayë°°ì—´ì˜ ì—´ì„ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ìŒ
         private void RightAggregater(int j)
         {
             for (int i = 0; i < maxXSize - 1; i++)
             {
-                // j°¡ roomDataÀÇ ¸¶Áö¸· ÇàÀÌ ¾Æ´Ò¶§
+                // jê°€ roomDataì˜ ë§ˆì§€ë§‰ í–‰ì´ ì•„ë‹ë•Œ
                 if (j != roomData.GetLength(0) - 1)
                 {
-                    // ¿·Ä­À» Àü¿°½ÃÅ³ È®·ü Áö±İÀº 2ºĞÀÇ 1
+                    // ì˜†ì¹¸ì„ ì „ì—¼ì‹œí‚¬ í™•ë¥  ì§€ê¸ˆì€ 2ë¶„ì˜ 1
                     if (Random.Range(0, 2) == 0)
                     {
-                        // Å©°Å³ª ÀÛ°Å³ª °°À»¶§
+                        // í¬ê±°ë‚˜ ì‘ê±°ë‚˜ ê°™ì„ë•Œ
                         if (roomData[j, i].aggregate < roomData[j, i + 1].aggregate)
                             roomData[j, i + 1].aggregate = roomData[j, i].aggregate;
                         else if (roomData[j, i].aggregate > roomData[j, i + 1].aggregate)
@@ -155,10 +155,10 @@ namespace PM
                 }
                 else
                 {
-                    // º¸½º¹æ¿¡ ¸¸¾à ÀÌ¹Ì À§·Î ¿¬°á µÇ¾îÀÖÀ¸¸é À§·Î ¿¬°áµÈ ¹æÁß ¿ŞÂÊÀ¸·Î ¿¬°áµÈÁö È®ÀÎ ÈÄ ¿¬°á ¾ÈµÇ¾î ÀÖÀ¸¸é
-                    // À§·Î ¿¬°áµÈ ¹æÁß ÇÏ³ª¸¦ ¿ŞÂÊÀ¸·Î ¿¬°á
+                    // ë³´ìŠ¤ë°©ì— ë§Œì•½ ì´ë¯¸ ìœ„ë¡œ ì—°ê²° ë˜ì–´ìˆìœ¼ë©´ ìœ„ë¡œ ì—°ê²°ëœ ë°©ì¤‘ ì™¼ìª½ìœ¼ë¡œ ì—°ê²°ëœì§€ í™•ì¸ í›„ ì—°ê²° ì•ˆë˜ì–´ ìˆìœ¼ë©´
+                    // ìœ„ë¡œ ì—°ê²°ëœ ë°©ì¤‘ í•˜ë‚˜ë¥¼ ì™¼ìª½ìœ¼ë¡œ ì—°ê²°
 
-                    // ÇØ¾ßÇÒ ÀÛ¾÷ ¿ŞÂÊÀ¸·Î ¿¬°áÇÑ ¹æ¿¡¼­ ¸¸¾à ¿¬°áµÈ ¿ŞÂÊÀ¸·Î ¿¬°áµÈ ¹æÀÌ ¾øÀ¸¸é È®ÀÎÇÏ¿© ¿¬°á
+                    // í•´ì•¼í•  ì‘ì—… ì™¼ìª½ìœ¼ë¡œ ì—°ê²°í•œ ë°©ì—ì„œ ë§Œì•½ ì—°ê²°ëœ ì™¼ìª½ìœ¼ë¡œ ì—°ê²°ëœ ë°©ì´ ì—†ìœ¼ë©´ í™•ì¸í•˜ì—¬ ì—°ê²°
                     if (i == roomData.GetLength(1) - 2)
                     {
                         if (roomData[j, i + 1].up)
@@ -205,7 +205,7 @@ namespace PM
 
             for (int i = 0; i < maxXSize; i++)
             {
-                // i°¡ roomData ¿­ÀÇ ¸¶Áö¸·ÀÌ ¾Æ´Ò¶§
+                // iê°€ roomData ì—´ì˜ ë§ˆì§€ë§‰ì´ ì•„ë‹ë•Œ
                 if (i != roomData.GetLength(1) - 1)
                 {
                     if (Random.Range(0, 2) == 0 || roomData[j, i].aggregate != roomData[j, i + 1].aggregate)
@@ -224,14 +224,14 @@ namespace PM
                 }
 
             }
-            // ¸¸¾à ÇàÀÇ °ªÀÌ ´Ù°°À»½Ã ¾Æ·¡ Åë·Î¸¦ ¾È¸¸µé±â ¶§¹®¿¡ Á¶°Ç¹®À¸·Î Ãß°¡
+            // ë§Œì•½ í–‰ì˜ ê°’ì´ ë‹¤ê°™ì„ì‹œ ì•„ë˜ í†µë¡œë¥¼ ì•ˆë§Œë“¤ê¸° ë•Œë¬¸ì— ì¡°ê±´ë¬¸ìœ¼ë¡œ ì¶”ê°€
             int sum = 0;
             for (int i = 0; i < maxXSize; i++)
             {
                 if (roomData[j, i].down)
                     sum++;
-                // ¸¶Áö¸· ¿­ÀÇ °ªÀÌ ÀÌÀü °ª°ú °°°í °°Àº °ªÀÇ ¾Æ·¡Åë·Î°¡ ¾ø°Å³ª ·ë°ªÀÌ ´ÙÀ½ ¹è¿­ÀÇ °ª°ú ´Ù¸£°í ¾Æ·¡Åë·ÎÀÇ ÇÕÀÌ 0ÀÌ¸é
-                // »õ·Î ¾Æ·¡·Î Åë·Î »ı¼º
+                // ë§ˆì§€ë§‰ ì—´ì˜ ê°’ì´ ì´ì „ ê°’ê³¼ ê°™ê³  ê°™ì€ ê°’ì˜ ì•„ë˜í†µë¡œê°€ ì—†ê±°ë‚˜ ë£¸ê°’ì´ ë‹¤ìŒ ë°°ì—´ì˜ ê°’ê³¼ ë‹¤ë¥´ê³  ì•„ë˜í†µë¡œì˜ í•©ì´ 0ì´ë©´
+                // ìƒˆë¡œ ì•„ë˜ë¡œ í†µë¡œ ìƒì„±
                 if (i == roomData.GetLength(1) - 1 || roomData[j, i].aggregate != roomData[j, i + 1].aggregate)
                 {
                     if (sum == 0)
@@ -254,24 +254,7 @@ namespace PM
                 }
             }
         }
-        /// <summary>
-        /// Àç±Í ÇÔ¼ö·Î ±¸Çö
-        /// i, j°¡ array ¹è¿­À» ¼øÈ¸
-        /// j,i°¡ ¹è¿­ÀÇ ÀÎµ¦½º¸¦ ³ÑÀ¸¸é return
-        /// </summary>
-        //private void PassageCreate(int m, int n)
-        //{
-        //    if (n + 1 < maxXSize && array[m, n].GetComponent<RoomData>().right == false)
-        //    {
-        //        PassageRightCreate(m, n);
-        //        PassageCreate(m, n + 1);
-        //    }
-        //    if (m + 1 < maxYSize && array[m, n].GetComponent<RoomData>().down == false)
-        //    {
-        //        PassageDownCreate(m, n);
-        //        PassageCreate(m + 1, n);
-        //    }
-        //}
+
         private void PassageRightCreate(int m, int n)
         {
             int x = 6;
@@ -299,8 +282,8 @@ namespace PM
             roomData[m + 1, n].up = true;
         }
 
-        // ¹è¿­¿¡ ÀúÀåµÈ °ÔÀÓ¿ÀºêÁ§Æ®¸¦ ¼øÈ¸ÇÏ¸ç RoomData ½ºÅ©¸³Æ®¸¦ È®ÀÎÇÏ¿© Åë·Î°¡ ¾ø´Â ¹æÇâ¿¡´Â ±×³É º® ÀÖ´Â ¹æÇâ¿¡´Â ¹®°ú º®À» »çÀÌÁî¿¡ ¸Â°Ô »ı¼º
-        // Åë·Î°¡ ÀÖ³Ä ¾ø³Ä¿¡ µû¶ó ´Ù¸£°Ô ½ÇÇà ÇÏ¸ç ÀÖÀ¸¸é 
+        // ë°°ì—´ì— ì €ì¥ëœ ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ ìˆœíšŒí•˜ë©° RoomData ìŠ¤í¬ë¦½íŠ¸ë¥¼ í™•ì¸í•˜ì—¬ í†µë¡œê°€ ì—†ëŠ” ë°©í–¥ì—ëŠ” ê·¸ëƒ¥ ë²½ ìˆëŠ” ë°©í–¥ì—ëŠ” ë¬¸ê³¼ ë²½ì„ ì‚¬ì´ì¦ˆì— ë§ê²Œ ìƒì„±
+        // í†µë¡œê°€ ìˆëƒ ì—†ëƒì— ë”°ë¼ ë‹¤ë¥´ê²Œ ì‹¤í–‰ í•˜ë©° ìˆìœ¼ë©´ 
         private void WallCreate()
         {
             for (int j = 0; j < maxYSize; j++)
@@ -396,26 +379,5 @@ namespace PM
                     break;
             }
         }
-
-        //private void DoorConnectings()
-        //{
-        //    for (int j = 0; j < maxYSize; j++)
-        //    {
-        //        for (int i = 0; i < maxXSize; i++)
-        //        {
-        //            RoomData roomData = array[j, i].GetComponent<RoomData>();
-                    
-        //            if(roomData.up || roomData.down || roomData.right || roomData.left)
-        //            {
-        //                SyberDoor[] doors = array[j, i].GetComponentsInChildren<SyberDoor>();
-        //                foreach(SyberDoor door in doors)
-        //                {
-        //                    if(door.arrow == SyberDoor.Arrow.up)
-        //                        //door.connetingDoor = array[j-1, i];
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
     }
 }
